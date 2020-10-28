@@ -27,10 +27,24 @@ CONF_ARGS = $(TARGET_CONF) $(RTS_CONF)
 GPROPTS = $(CONF_ARGS) -XAUNIT_BUILD_MODE=$(MODE) -XAUNIT_RUNTIME=$(RTS) \
 		-XAUNIT_PLATFORM=$(TARGET)
 
-.PHONY: all clean targets install_clean install
+.PHONY: all clean targets install_clean install examples
 
 all:
 	$(GPRBUILD) -p $(GPROPTS) lib/gnat/aunit.gpr
+
+examples:
+	$(GPRBUILD) -p $(GPROPTS) examples/liskov/tested_lib/testlib.gpr
+	$(GPRBUILD) -p $(GPROPTS) examples/liskov/harness.gpr
+	$(GPRBUILD) -p $(GPROPTS) examples/test_fixture/tested_lib/testlib.gpr
+	$(GPRBUILD) -p $(GPROPTS) examples/test_fixture/harness.gpr
+	$(GPRBUILD) -p $(GPROPTS) examples/test_caller/tested_lib/testlib.gpr
+	$(GPRBUILD) -p $(GPROPTS) examples/test_caller/harness/harness.gpr
+	$(GPRBUILD) -p $(GPROPTS) examples/failures/tested_lib/testlib.gpr
+	$(GPRBUILD) -p $(GPROPTS) examples/failures/harness.gpr
+	$(GPRBUILD) -p $(GPROPTS) examples/calculator/tested_lib/testlib.gpr
+	$(GPRBUILD) -p $(GPROPTS) examples/calculator/harness.gpr
+	$(GPRBUILD) -p $(GPROPTS) examples/simple_test/tested_lib/testlib.gpr
+	$(GPRBUILD) -p $(GPROPTS) examples/simple_test/harness.gpr
 
 clean-lib:
 	$(RM) -fr lib/aunit lib/aunit-obj
